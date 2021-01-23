@@ -73,11 +73,12 @@ public class AssEx1 {
         } else if (operator.equals("*")) {
             result = firstInt * secondInt;
         } else if (operator.equals("/")) {
-            //casting firstInt and secondInt into two double variable, so that we can perform floating point division
+            //cast firstInt and secondInt into two double variable, so that we can perform floating point division
             result = ((double) firstInt) / ((double) secondInt);
         }
 
         //get the length of first and second int for formatting
+        //cast firstIntLength into a String type, so that we can use .length() to get the length
         String firstIntInString = String.format("%s", firstInt);
         int firstIntLength = firstIntInString.length() + 1;
         String secondIntInString = String.format("%s", secondInt);
@@ -168,6 +169,3 @@ public class AssEx1 {
 
 
 }
-
-
-
