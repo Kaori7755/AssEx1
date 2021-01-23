@@ -6,55 +6,66 @@ public class AssEx1 {
     public static void main(String[] args) {
         String date = "01/01/21";
 
-//        welcome(date);
-//
-//        int n = 10;
-//        divisors(n);
-//
-//        System.out.println(check(1));
-//        System.out.println(check(6));
-//        System.out.println(check(11));
-//        System.out.println(check(12));
-//
-//        calculator();
+        welcome(date);
 
-        products(13, 7);
+        int n = 10;
+        divisors(n);
+
+        System.out.println(check(1));
+        System.out.println(check(6));
+        System.out.println(check(11));
+        System.out.println(check(12));
+
+        calculator();
+
+        products(13,7);
+        products(-2,7);
+        products(3,6);
+        products(12,13);
+        products(5,25);
     }
 
     public static void welcome(String date) {
-        System.out.println("Hi, please enter your name."); //prompts the user to enter their name
+        //prompts the user to enter their name
+        System.out.println("Hi, please enter your name.");
         Scanner s = new Scanner(System.in);
-        String userName = s.nextLine(); //save their name in a string variable
+        //save their name in a string variable
+        String userName = s.nextLine();
         System.out.println("Hello " + userName + " " + date);
     }
 
     public static void divisors(int n) {
-        for (int i = 1; i <= n; i++) { //create a for loop to calculates if n is dividable by all of the integers between 1 and n)
-            if (n % i == 0) { //check if n is dividable by numbers between 1 - n
-                System.out.println(i); //if n is dividable by a number, print out that number in a new line
+        //create a for loop to calculates if n is dividable by all of the integers between 1 and n)
+        for (int i = 1; i <= n; i++) {
+            //check if n is dividable by numbers between 1 - n
+            if (n % i == 0) {
+                System.out.println(i);
             }
         }
     }
 
     public static boolean check(int n) {
-        if ((n == 12) || ((n > 5) && (n < 10))) { //check if n is 12, or is between 5 and 10
-            return true; //if yes, return true
+        //check if n is 12, or is between 5 and 10
+        if ((n == 12) || ((n > 5) && (n < 10))) {
+            return true;
         }
-        return false;  // if no, return false
+        return false;
     }
 
     public static void calculator() {
         System.out.println("Please input an integer, followed by an operator e.g +-*/, followed by another integer.\nYou should enter them on the same line and separated by spaces.");
-        Scanner s = new Scanner(System.in); //first scanner
+        //first scanner
+        Scanner s = new Scanner(System.in);
         String input = s.nextLine();
-        Scanner t = new Scanner(input); //second scanner with input passed to it
-        int firstInt = t.nextInt(); //take out and store the first integer entered by user
-        String operator = t.next().trim(); //take out and store the operator entered by user
-        int secondInt = t.nextInt(); //take out and store the second integer entered by user
+        //second scanner with input passed to it
+        Scanner t = new Scanner(input);
+        //take out and store the first integer entered by user
+        int firstInt = t.nextInt();
+        //take out and store the operator entered by user
+        String operator = t.next().trim();
+        //take out and store the second integer entered by user
+        int secondInt = t.nextInt();
         double result = 0;
-//        System.out.println(firstInt);
-//        System.out.println(operator);
-//        System.out.println(secondInt);
         if (operator.equals("+")) {
             result = firstInt + secondInt;
         } else if (operator.equals("-")) {
@@ -62,61 +73,92 @@ public class AssEx1 {
         } else if (operator.equals("*")) {
             result = firstInt * secondInt;
         } else if (operator.equals("/")) {
-            result = ((double) firstInt) / ((double) secondInt); //casting firstInt and secondInt into two double variable, so that we can perform floating point division
+            //casting firstInt and secondInt into two double variable, so that we can perform floating point division
+            result = ((double) firstInt) / ((double) secondInt);
         }
-        String formula = firstInt + " " + operator + " " + secondInt + " " + "=";
-        String answer = String.format("%7.2f", result);
-        System.out.print(formula + answer);
 
+        //get the length of first and second int for formatting
+        String firstIntInString = String.format("%s", firstInt);
+        int firstIntLength = firstIntInString.length() + 1;
+        String secondIntInString = String.format("%s", secondInt);
+        int secondIntLength = secondIntInString.length() + 1;
+
+        //set the right String format syntax for first int
+        String firstIntSyntax = "%-" + firstIntLength + "d";
+        //set the right String format syntax for second int
+        String secondIntSyntax = "%-" + secondIntLength + "d";
+        //set the right String format syntax for the operator
+        String operatorSyntax = "%-2s";
+        //set the right String format syntax for the whole expression
+        String wholeSyntax = firstIntSyntax + operatorSyntax + secondIntSyntax;
+        String wholeExpression = String.format(wholeSyntax, firstInt, operator, secondInt);
+        String answer = String.format("%7.2f", result);
+
+        System.out.println(wholeExpression + "=" + answer);
     }
+
+
+
 
     public static void products(int rows, int columns) {
-        //set the length of each entry
-        int largestValue = (rows*columns);
-        int length = 0;
-        if((largestValue>=0) && (largestValue<=9)){
-            length = 2;
-        }else if((largestValue>9) && (largestValue<=99)){
-            length = 3;
-        }else if((largestValue>99) && (largestValue<=999)){
-            length = 4;
-        }else if((largestValue>999) && (largestValue<=9999)){
-            length = 5;
-        }
+        //check if number of rows and columns is >=0 and <=20
+        if ((!isRowsAndColumnValid(rows)) || ((!isRowsAndColumnValid(columns)))) {
+            System.out.println("error");
+        } else if((rows==0)||(columns==0)){
+            System.out.println();
+        } else{
 
-        String format = ("%" + length+"d"); //set the right syntax for String.format
-        String formatForSymbol = ("%" + length+"s"); //set the right syntax for -
+            //set the length of each entry
+            int largestValue = (rows * columns);
+            String largestValueInString = String.format("%s", largestValue);
+            int length = largestValueInString.length() + 1;
 
-        //column heading
-        System.out.print(String.format(formatForSymbol, "|"));
-        for(int a = 1; a <= columns; a ++){
+            //set the right String.format syntax for each entry
+            String format = ("%" + length + "d");
+            //set the right String.format syntax for "-"
+            String formatForSymbol = ("%" + length + "s");
 
-            System.out.print(String.format(format,a));
-        }
-        System.out.println();
-        for(int b = 0; b <=columns; b++){  //print out the "-" until it reaches the end of column
-            for(int c =1; c <= length; c++){ //how many "-" to print out = length of the biggest value + 1
-                System.out.print("-");
+
+            //column heading
+            System.out.print(String.format(formatForSymbol, "|"));
+            for (int a = 1; a <= columns; a++) {
+                    System.out.print(String.format(format, a));
+                }
+
+            System.out.println();
+
+            //print out the "-" line
+            for (int b = 0; b <= columns; b++) {
+                    //how many "-" to print out = length of the biggest value + 1
+                    for (int d = 1; d <= length; d++) {
+                        System.out.print("-");
+                    }
+                }
+
+            System.out.println();
+
+            //for the rows, stops when j = number of rows
+            for (int j = 1; j <= rows; j++) {
+                    //rows heading
+                    String rowsHeading = j + "|";
+                    System.out.print(String.format(formatForSymbol, rowsHeading));
+                    //for columns, stops when i = number of columns
+                    for (int i = 1; i <= columns; i++) {
+                        //prints out every product of row*column (i*j) with the format, until i= j,
+                        // then restart the loop
+                        System.out.print(String.format(format, i * j));
+                    }
+                    //create new line after 2nd loop ends
+                    System.out.println();
+                }
             }
         }
-        System.out.println();
-
-        for (int j = 1; j <= rows; j++) {//for the rows, stops when j = number of rows
-            if ((!checkNumberOfRowAndColumn(rows)) || ((!checkNumberOfRowAndColumn(columns)))) {
-                System.out.println("error");
-                break;
-            }
-            String rowsHeading = j + "|";
-            System.out.print(String.format(formatForSymbol, rowsHeading));
-            for (int i = 1; i <= columns; i++) {//for columns, stops when i = number of columns
-                System.out.print(String.format(format, i*j)); //prints out every product of row*column (i*j) with the format, until i= j, then it end the loop, restart the loop
-            }
-            System.out.println(); //create new line after 2nd  loop ends
-        }
-    }
 
 
-    public static boolean checkNumberOfRowAndColumn(int n) {
+
+
+
+    public static boolean isRowsAndColumnValid(int n) {
         if ((n < 0) || (n > 20)) {
             return false;
         }
