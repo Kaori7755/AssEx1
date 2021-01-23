@@ -5,24 +5,24 @@ import java.util.Scanner;
 public class AssEx1 {
     public static void main(String[] args) {
         String date = "01/01/21";
-
+        comment();
         welcome(date);
-
         int n = 10;
         divisors(n);
-
         System.out.println(check(1));
         System.out.println(check(6));
         System.out.println(check(11));
         System.out.println(check(12));
-
         calculator();
-
         products(13,7);
         products(-2,7);
         products(3,6);
         products(12,13);
         products(5,25);
+    }
+
+    public static void comment() {
+        // just a comment!
     }
 
     public static void welcome(String date) {
